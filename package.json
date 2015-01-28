@@ -1,0 +1,11 @@
+{
+  "name": "taskrunners",
+  "scripts": {
+    "server": "harp server assets",
+    "compile": "harp compile assets www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "harp": "^0.14.0"
+  }
+}
