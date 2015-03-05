@@ -17,9 +17,10 @@ gulp.task('clean:tmp', function(cb) {
 gulp.task('browserify', function() {
   var b = browserify({
     entries: ['./assets/js/app.js'],
-    transform: [reactify]
+    transform: ['reactify']
   });
   return b.bundle()
+    .on('error', $.notify.onError('<%= error.message %>'))
     .pipe(source('bundle.js'))
     .pipe(gulp.dest('.tmp/js'))
     .pipe(reload({stream:true}));
@@ -28,6 +29,7 @@ gulp.task('browserify', function() {
 // copy:html
 gulp.task('copy:html', function() {
   return gulp.src('assets/**/*.html')
+    .pipe($.plumber({errorHandler: $.notify.onError('<%= error.message %>')}))
     .pipe(gulp.dest('.tmp'))
     .pipe(reload({stream:true}));
 });
@@ -35,6 +37,7 @@ gulp.task('copy:html', function() {
 // copy:css
 gulp.task('copy:css', function() {
   return gulp.src('assets/css/**/*.css')
+    .pipe($.plumber({errorHandler: $.notify.onError('<%= error.message %>')}))
     .pipe(gulp.dest('.tmp/css'))
     .pipe(reload({stream:true}));
 });
